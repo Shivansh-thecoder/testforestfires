@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* Light green background */
+        }
+        .result-box {
+            background-color: #fee2e2; /* Light red/pink for result emphasis */
+        }
+        .fire-gradient {
+            background-image: linear-gradient(to right, #ef4444, #f59e0b);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-xl bg-white shadow-2xl rounded-xl p-8 sm:p-10 border border-gray-100 text-center">
+            
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Prediction Complete!</h1>
+
+            <!-- Result Display -->
+            {% if result is defined %}
+                <div class="result-box rounded-xl p-6 mb-8 shadow-inner border border-red-300">
+                    <p class="text-lg text-gray-700 font-medium">The predicted Fire Weather Index (FWI) is:</p>
+                    <div class="mt-4">
+                        <span class="text-6xl font-extrabold fire-gradient bg-clip-text text-transparent">
+                            {{ result | round(2) }}
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">Note: The FWI is a measure of fire intensity. Higher values indicate higher fire risk.</p>
+                </div>
+            {% else %}
+                <div class="result-box rounded-xl p-6 mb-8 shadow-inner border border-yellow-300 bg-yellow-50">
+                    <p class="text-lg text-gray-700 font-medium">No prediction data received yet.</p>
+                    <p class="text-sm text-gray-500 mt-2">Please go back to the input form to submit data.</p>
+                </div>
+            {% endif %}
+
+            <!-- Navigation Button -->
+            <a href="{{ url_for('index') }}" class="inline-block py-3 px-6 rounded-lg text-white font-semibold fire-gradient hover:opacity-90 transition duration-300 shadow-lg shadow-red-200/50">
+                &larr; Go Back to Input Form
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
